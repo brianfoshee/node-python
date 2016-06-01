@@ -68,4 +68,28 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
   && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
+# STEP 3: INSTALL PACKER
+ENV PACKER_VERSION=0.10.1
+ENV PACKER_SHA256SUM=eadd33bc0f8fa42034059fc1cda5f43ed6f540746e767480f0706ebed49b45e5
+
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip ./
+ADD https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_SHA256SUMS ./
+
+RUN sed -i '/packer_${PACKER_VERSION}_linux_amd64.zip/!d' packer_${PACKER_VERSION}_SHA256SUMS
+RUN sha256sum -cs packer_${PACKER_VERSION}_SHA256SUMS
+RUN unzip packer_${PACKER_VERSION}_linux_amd64.zip -d /bin
+RUN rm -f packer_${PACKER_VERSION}_linux_amd64.zip
+
+# STEP 4: INSTALL TERRAFORM
+ENV TERRAFORM_VERSION=0.6.16
+ENV TERRAFORM_SHA256SUM=e10987bca7ec15301bc2fd152795d51cfc9fdbe6c70c9708e6e2ed81eaa1f082
+
+ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip ./
+ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_SHA256SUMS ./
+
+RUN sed -i '/terraform_${TERRAFORM_VERSION}_linux_amd64.zip/!d' terraform_${TERRAFORM_VERSION}_SHA256SUMS
+RUN sha256sum -cs terraform_${TERRAFORM_VERSION}_SHA256SUMS
+RUN unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin
+RUN rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
 CMD [ "node" ]
