@@ -1,10 +1,6 @@
 # STEP 1: INSTALL PYTHON (above)
 FROM python:2.7.11
 
-# install np deps
-COPY np-requirements.txt np-requirements.txt
-RUN pip install --requirement np-requirements.txt
-
 # STEP 2: INSTALL NODE
 # gpg keys listed at https://github.com/nodejs/node
 RUN set -ex \
