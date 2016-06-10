@@ -1,6 +1,9 @@
 # STEP 1: INSTALL PYTHON (above)
 FROM python:2.7.11
 
+# Install AWS cli
+pip install awscli
+
 # STEP 2: INSTALL NODE
 # gpg keys listed at https://github.com/nodejs/node
 RUN set -ex \
