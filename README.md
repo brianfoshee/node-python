@@ -1,1 +1,1 @@
-Node 6.2.2 and Python 2.7.11
+Node 6.3.0 and Python 2.7.11
